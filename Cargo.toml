@@ -11,3 +11,7 @@ version = "0.1.0"
 [dependencies]
 nu-plugin = "0.98.0"
 nu-protocol = "0.98.0"
+itertools = "0.13.0"
+
+[dev-dependencies]
+nu-plugin-test-support = { version = "0.98.0" }
