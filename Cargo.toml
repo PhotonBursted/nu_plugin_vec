@@ -1,0 +1,13 @@
+[package]
+authors = ["Dennis Kottier <me@photonbur.st>"]
+description = "A Nushell plugin implementing vector operations"
+edition = "2021"
+homepage = "https://github.com/FMotalleb/nu_plugin_desktop_notifications"
+license = "MIT"
+name = "nu_plugin_vec"
+readme = "README.md"
+version = "0.1.0"
+
+[dependencies]
+nu-plugin = "0.98.0"
+nu-protocol = "0.98.0"
