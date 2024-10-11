@@ -5,7 +5,10 @@ use itertools::Itertools;
 use nu_plugin::{EngineInterface, EvaluatedCall, PluginCommand};
 #[cfg(test)]
 use nu_plugin_test_support::PluginTest;
-use nu_protocol::{Category, Example, IntoValue, LabeledError, PipelineData, ShellError, Signature, Span, SyntaxShape, Type, Value};
+use nu_protocol::{
+    Category, Example, IntoValue, LabeledError, PipelineData, ShellError, Signature, Span,
+    SyntaxShape, Type, Value,
+};
 
 struct Arguments {
     vector_rhs: Vec<f64>,
@@ -103,7 +106,7 @@ pub fn compute_vsin(
         .coerce_float()
         .map(|float| float.sqrt().into_value(command_span));
 
-    output.map_err(|err| LabeledError::from(err))
+    output.map_err(LabeledError::from)
 }
 
 #[cfg(test)]

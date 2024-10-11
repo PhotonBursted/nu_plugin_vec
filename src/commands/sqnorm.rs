@@ -6,9 +6,7 @@ use nu_plugin::{EngineInterface, EvaluatedCall, PluginCommand};
 use nu_plugin_test_support::PluginTest;
 #[cfg(test)]
 use nu_protocol::ShellError;
-use nu_protocol::{
-    Category, Example, LabeledError, PipelineData, Signature, Span, Type, Value,
-};
+use nu_protocol::{Category, Example, LabeledError, PipelineData, Signature, Span, Type, Value};
 
 #[derive(Clone)]
 pub struct Command;
@@ -50,10 +48,7 @@ impl PluginCommand for Command {
         call: &EvaluatedCall,
         input: PipelineData,
     ) -> Result<PipelineData, LabeledError> {
-        match operate(call, input) {
-            Ok(val) => Ok(val),
-            Err(err) => Err(LabeledError::from(err)),
-        }
+        operate(call, input)
     }
 }
 
