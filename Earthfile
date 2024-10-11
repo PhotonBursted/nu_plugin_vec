@@ -38,7 +38,6 @@ fmt:
 
 # all runs all other targets in parallel
 check:
-  BUILD +build
   BUILD +test
   BUILD +fmt
 
