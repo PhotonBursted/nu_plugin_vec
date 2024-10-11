@@ -1,4 +1,4 @@
-VERSION --global-cache 0.7
+VERSION --global-cache 0.8
 
 IMPORT github.com/earthly/lib/rust:2.2.11 AS rust
 
