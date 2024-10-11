@@ -1,4 +1,4 @@
-name: Release
+name: Check PR code quality
 
 on:
   pull_request:
