@@ -3,3 +3,4 @@ major_version_zero = true
 version_provider = "cargo"
 version_scheme = "semver2"
 update_changelog_on_bump = true
+tag_format = "v$version"
