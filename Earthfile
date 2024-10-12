@@ -25,20 +25,20 @@ lint:
 
 # build builds with the Cargo release profile
 build:
-  FROM +lint
+  FROM +source
 
   DO rust+CARGO --args="build --release" --output="release/[^/\.]+"
   SAVE ARTIFACT ./target/release/ target AS LOCAL artifact/target
 
 # test executes all unit and integration tests via Cargo
 test:
-  FROM +lint
+  FROM +source
 
   DO rust+CARGO --args="test"
 
 # fmt checks whether Rust code is formatted according to style guidelines
 fmt:
-  FROM +lint
+  FROM +source
 
   DO rust+CARGO --args="fmt --check"
 
@@ -73,12 +73,11 @@ bumpVersion:
 
 # releases the plugin to crates.io
 release:
-  ARG cargo_registry_token
-  ENV CARGO_REGISTRY_TOKEN=$cargo_registry_token
-
   FROM +build
 
-  DO rust+CARGO --args="login" # Uses the CARGO_REGISTRY_TOKEN env var to log in
+  COPY cargo_token ./
+
+  DO rust+CARGO --args="login < cargo_token" # Uses the CARGO_REGISTRY_TOKEN env var to log in
   DO rust+CARGO --args="publish"
 
 
