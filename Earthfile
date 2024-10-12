@@ -21,11 +21,6 @@ source:
 lint:
   FROM +source
 
-  # DEBUG which tags are available?
-  DO +COPY_GIT
-  RUN cz bump --dry-run
-  RUN exit 0
-
   DO rust+CARGO --args="clippy --all-features --all-targets -- -D warnings"
 
 # build builds with the Cargo release profile
