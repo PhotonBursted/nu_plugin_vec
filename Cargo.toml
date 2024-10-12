@@ -6,7 +6,7 @@ homepage = "https://github.com/FMotalleb/nu_plugin_desktop_notifications"
 license = "MIT"
 name = "nu_plugin_vec"
 readme = "README.md"
-version = "0.1.0"
+version = "0.2.0"
 
 [dependencies]
 nu-plugin = "0.98.0"
