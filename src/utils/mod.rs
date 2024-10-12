@@ -9,11 +9,8 @@ pub fn process_pipeline(
     mf: impl Fn(&[Value], Span, Span) -> Result<Value, LabeledError>,
 ) -> Result<PipelineData, LabeledError> {
     let name = call.head;
-    let res = calculate(input, name, mf);
-    match res {
-        Ok(v) => Ok(v.into_pipeline_data()),
-        Err(e) => Err(LabeledError::from(e)),
-    }
+
+    calculate(input, name, mf).map(|v| v.into_pipeline_data())
 }
 
 pub fn calculate(
@@ -23,9 +20,7 @@ pub fn calculate(
 ) -> Result<Value, LabeledError> {
     let span = values.span().unwrap_or(name);
     match values {
-        PipelineData::Value(Value::List { ref vals, .. }, ..) => match &vals[..] {
-            _ => mf(vals, span, name),
-        },
+        PipelineData::Value(Value::List { ref vals, .. }, ..) => mf(vals, span, name),
         PipelineData::Empty { .. } => Err(LabeledError::from(ShellError::PipelineEmpty {
             dst_span: name,
         })),

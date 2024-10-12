@@ -7,8 +7,7 @@ use nu_plugin_test_support::PluginTest;
 #[cfg(test)]
 use nu_protocol::ShellError;
 use nu_protocol::{
-    Category, Example, IntoValue, LabeledError, PipelineData, Signature, Span, Type,
-    Value,
+    Category, Example, IntoValue, LabeledError, PipelineData, Signature, Span, Type, Value,
 };
 
 #[derive(Clone)]
@@ -71,7 +70,7 @@ pub fn compute_magnitude(vector: &[Value], command_span: Span) -> Result<Value, 
         .coerce_float()
         .map(|float| float.sqrt().into_value(command_span));
 
-    output.map_err(|err| LabeledError::from(err))
+    output.map_err(LabeledError::from)
 }
 
 #[cfg(test)]

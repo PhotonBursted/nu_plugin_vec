@@ -111,7 +111,7 @@ pub fn compute_vcos(
 
     let output = dot_product.div(command_span, &magnitude_product, command_span);
 
-    output.map_err(|err| LabeledError::from(err))
+    output.map_err(LabeledError::from)
 }
 
 #[cfg(test)]

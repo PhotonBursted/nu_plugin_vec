@@ -1,0 +1,19 @@
+name: Check code quality
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      EARTHLY_TOKEN: ${{ secrets.EARTHLY_TOKEN }}
+      FORCE_COLOR: 1
+    steps:
+      - uses: earthly/actions-setup@v1
+        with:
+          version: v0.8.14
+      - uses: actions/checkout@v4
+      - name: Check code quality
+        run: earthly --ci +check
