@@ -1,5 +1,5 @@
 [package]
-authors = ["Dennis Kottier <me@photonbur.st>"]
+authors = ["Dennis Kottier <inquiries@photonbur.st>"]
 description = "A Nushell plugin implementing vector operations"
 edition = "2021"
 homepage = "https://github.com/FMotalleb/nu_plugin_desktop_notifications"
