@@ -9,7 +9,6 @@ jobs:
     if: "!startsWith(github.event.head_commit.message, 'bump:')"
     runs-on: ubuntu-latest
     env:
-      CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
       EARTHLY_TOKEN: ${{ secrets.EARTHLY_TOKEN }}
       FORCE_COLOR: 1
     steps:
