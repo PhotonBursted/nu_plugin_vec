@@ -49,9 +49,6 @@ check:
 
 # bumps the version of the plugin if impactful commits have been made
 bumpVersion:
-  ARG COMMITTER_NAME
-  ARG COMMITTER_EMAIL
-
   FROM commitizen/commitizen:3.29.0
   WORKDIR /build
 
