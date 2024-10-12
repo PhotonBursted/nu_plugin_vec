@@ -47,6 +47,9 @@ check:
   BUILD +test
   BUILD +fmt
 
+  # DEBUG which tags are available?
+  RUN git tag --list
+
 # bumps the version of the plugin if impactful commits have been made
 bumpVersion:
   ARG COMMITTER_NAME
