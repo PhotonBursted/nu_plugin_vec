@@ -59,7 +59,6 @@ bumpVersion:
   END
 
   # Conservatively copy other files needed for next steps
-  DO +COPY_GIT
   DO +COPY_CZ
   # Test whether a version bump is necessary
   IF cz bump --dry-run
@@ -90,13 +89,15 @@ COPY_ALL:
 COPY_CZ:
   FUNCTION
 
+  DO +COPY_GIT             # Prerequisite, as the git information has to be present (tags, commit author has to be set)
+  RUN git fetch --tags     # Explicitly fetch tags, as they are not included by default
+
   COPY --keep-ts .cz.toml ./
 
 COPY_GIT:
   FUNCTION
 
   COPY --keep-ts --dir .git ./
-  RUN git fetch --tags
 
 COPY_SOURCE:
   FUNCTION
