@@ -10,11 +10,12 @@ impl Plugin for VecPlugin {
         env!("CARGO_PKG_VERSION").into()
     }
 
-    fn commands(&self) -> Vec<Box<dyn PluginCommand<Plugin = Self>>> {
+    fn commands(&self) -> Vec<Box<dyn PluginCommand<Plugin=Self>>> {
         vec![
             Box::new(commands::Cosine),
             Box::new(commands::Dot),
             Box::new(commands::Magnitude),
+            Box::new(commands::Normalize),
             Box::new(commands::Sine),
             Box::new(commands::SqNorm),
         ]
