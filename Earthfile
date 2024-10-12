@@ -1,4 +1,5 @@
 VERSION 0.8
+PROJECT nu_plugin_vec/plugin
 
 IMPORT github.com/earthly/lib/rust:2.2.11 AS rust
 
