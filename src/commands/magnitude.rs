@@ -59,13 +59,17 @@ impl PluginCommand for Command {
 }
 
 fn operate(call: &EvaluatedCall, input: PipelineData) -> Result<PipelineData, LabeledError> {
-    process_pipeline(call, input, |vector_lhs, _pipeline_span, command_span| {
-        compute_magnitude(vector_lhs, command_span)
+    process_pipeline(call, input, |vector_lhs, pipeline_span, command_span| {
+        compute_magnitude(vector_lhs, pipeline_span, command_span)
     })
 }
 
-pub fn compute_magnitude(vector: &[Value], command_span: Span) -> Result<Value, LabeledError> {
-    let squared_norm = compute_squared_norm(vector, command_span)?;
+pub fn compute_magnitude(
+    vector: &[Value],
+    pipeline_span: Span,
+    command_span: Span,
+) -> Result<Value, LabeledError> {
+    let squared_norm = compute_squared_norm(vector, pipeline_span, command_span)?;
     let output = squared_norm
         .coerce_float()
         .map(|float| float.sqrt().into_value(command_span));

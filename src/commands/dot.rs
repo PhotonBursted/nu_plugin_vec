@@ -86,14 +86,20 @@ fn operate(
         .map(|float| float.into_value(head))
         .collect_vec();
 
-    process_pipeline(call, input, |vector_lhs, _pipeline_span, command_span| {
-        compute_dot_product(vector_lhs, vector_rhs.as_slice(), command_span)
+    process_pipeline(call, input, |vector_lhs, pipeline_span, command_span| {
+        compute_dot_product(
+            vector_lhs,
+            vector_rhs.as_slice(),
+            pipeline_span,
+            command_span,
+        )
     })
 }
 
 pub fn compute_dot_product(
     vector_lhs: &[Value],
     vector_rhs: &[Value],
+    pipeline_span: Span,
     command_span: Span,
 ) -> Result<Value, LabeledError> {
     if vector_lhs.len() != vector_rhs.len() {
@@ -119,7 +125,7 @@ pub fn compute_dot_product(
         })
         .collect_vec();
 
-    sum(element_products, command_span, command_span)
+    sum(element_products, pipeline_span, command_span)
 }
 
 #[cfg(test)]

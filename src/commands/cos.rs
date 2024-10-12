@@ -85,28 +85,34 @@ fn operate(
         .map(|float| float.into_value(head))
         .collect_vec();
 
-    process_pipeline(call, input, |vector_lhs, _pipeline_span, command_span| {
-        compute_vcos(vector_lhs, vector_rhs.as_slice(), command_span)
+    process_pipeline(call, input, |vector_lhs, pipeline_span, command_span| {
+        compute_vcos(
+            vector_lhs,
+            vector_rhs.as_slice(),
+            pipeline_span,
+            command_span,
+        )
     })
 }
 
 pub fn compute_vcos(
     vector_lhs: &[Value],
     vector_rhs: &[Value],
+    pipeline_span: Span,
     command_span: Span,
 ) -> Result<Value, LabeledError> {
     if vector_lhs.len() != vector_rhs.len() {
         return Err(LabeledError::from(ShellError::IncorrectValue {
             msg: format!("Only equal-length vectors are supported.\nThe pipeline contained {} elements, this list contained {}.", vector_lhs.len(), vector_rhs.len()),
-            val_span: command_span,
+            val_span: pipeline_span,
             call_span: command_span,
         }));
     }
 
-    let dot_product = compute_dot_product(vector_lhs, vector_rhs, command_span)?;
+    let dot_product = compute_dot_product(vector_lhs, vector_rhs, pipeline_span, command_span)?;
 
-    let magnitude_lhs = compute_magnitude(vector_lhs, command_span)?;
-    let magnitude_rhs = compute_magnitude(vector_rhs, command_span)?;
+    let magnitude_lhs = compute_magnitude(vector_lhs, pipeline_span, command_span)?;
+    let magnitude_rhs = compute_magnitude(vector_rhs, pipeline_span, command_span)?;
     let magnitude_product = magnitude_lhs.mul(command_span, &magnitude_rhs, command_span)?;
 
     let output = dot_product.div(command_span, &magnitude_product, command_span);
