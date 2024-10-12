@@ -75,7 +75,7 @@ bumpVersion:
 release:
   FROM +build
 
-  COPY cargo_token ./
+  COPY --keep-ts cargo_token README.md ./
 
   DO rust+CARGO --args="login < cargo_token" # Uses the CARGO_REGISTRY_TOKEN env var to log in
   DO rust+CARGO --args="publish"
