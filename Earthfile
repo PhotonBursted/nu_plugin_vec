@@ -99,6 +99,7 @@ COPY_GIT:
   FUNCTION
 
   COPY --keep-ts --dir .git ./
+  RUN git pull --tags
 
 COPY_SOURCE:
   FUNCTION
