@@ -61,13 +61,17 @@ impl PluginCommand for Command {
 }
 
 fn operate(call: &EvaluatedCall, input: PipelineData) -> Result<PipelineData, LabeledError> {
-    process_pipeline(call, input, |vector_lhs, _pipeline_span, command_span| {
-        normalize_vector(vector_lhs, command_span)
+    process_pipeline(call, input, |vector_lhs, pipeline_span, command_span| {
+        normalize_vector(vector_lhs, pipeline_span, command_span)
     })
 }
 
-pub fn normalize_vector(vector: &[Value], command_span: Span) -> Result<Value, LabeledError> {
-    let magnitude = compute_magnitude(vector, command_span)?;
+pub fn normalize_vector(
+    vector: &[Value],
+    pipeline_span: Span,
+    command_span: Span,
+) -> Result<Value, LabeledError> {
+    let magnitude = compute_magnitude(vector, pipeline_span, command_span)?;
     let output = Value::list(
         vector
             .iter()

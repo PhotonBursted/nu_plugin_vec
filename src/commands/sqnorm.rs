@@ -53,13 +53,17 @@ impl PluginCommand for Command {
 }
 
 fn operate(call: &EvaluatedCall, input: PipelineData) -> Result<PipelineData, LabeledError> {
-    process_pipeline(call, input, |vector_lhs, _pipeline_span, command_span| {
-        compute_squared_norm(vector_lhs, command_span)
+    process_pipeline(call, input, |vector_lhs, pipeline_span, command_span| {
+        compute_squared_norm(vector_lhs, pipeline_span, command_span)
     })
 }
 
-pub fn compute_squared_norm(vector: &[Value], command_span: Span) -> Result<Value, LabeledError> {
-    compute_dot_product(vector, vector, command_span)
+pub fn compute_squared_norm(
+    vector: &[Value],
+    pipeline_span: Span,
+    command_span: Span,
+) -> Result<Value, LabeledError> {
+    compute_dot_product(vector, vector, pipeline_span, command_span)
 }
 
 #[cfg(test)]

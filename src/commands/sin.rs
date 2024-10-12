@@ -80,25 +80,31 @@ fn operate(
         .map(|float| float.into_value(head))
         .collect_vec();
 
-    process_pipeline(call, input, |vector_lhs, _pipeline_span, command_span| {
-        compute_vsin(vector_lhs, vector_rhs.as_slice(), command_span)
+    process_pipeline(call, input, |vector_lhs, pipeline_span, command_span| {
+        compute_vsin(
+            vector_lhs,
+            vector_rhs.as_slice(),
+            pipeline_span,
+            command_span,
+        )
     })
 }
 
 pub fn compute_vsin(
     vector_lhs: &[Value],
     vector_rhs: &[Value],
+    pipeline_span: Span,
     command_span: Span,
 ) -> Result<Value, LabeledError> {
     if vector_lhs.len() != vector_rhs.len() {
         return Err(LabeledError::from(ShellError::IncorrectValue {
             msg: format!("Only equal-length vectors are supported.\nThe pipeline contained {} element(s), the list contained {}.", vector_lhs.len(), vector_rhs.len()),
-            val_span: command_span,
+            val_span: pipeline_span,
             call_span: command_span,
         }));
     }
 
-    let cosine = compute_vcos(vector_lhs, vector_rhs, command_span)?;
+    let cosine = compute_vcos(vector_lhs, vector_rhs, pipeline_span, command_span)?;
     let cosine_squared = cosine.mul(command_span, &cosine, command_span)?;
     let output_squared =
         Value::int(1, command_span).sub(command_span, &cosine_squared, command_span)?;

@@ -86,14 +86,20 @@ fn operate(
         .map(|float| float.into_value(head))
         .collect_vec();
 
-    process_pipeline(call, input, |vector_lhs, _pipeline_span, command_span| {
-        compute_dot_product(vector_lhs, vector_rhs.as_slice(), command_span)
+    process_pipeline(call, input, |vector_lhs, pipeline_span, command_span| {
+        compute_dot_product(
+            vector_lhs,
+            vector_rhs.as_slice(),
+            pipeline_span,
+            command_span,
+        )
     })
 }
 
 pub fn compute_dot_product(
     vector_lhs: &[Value],
     vector_rhs: &[Value],
+    pipeline_span: Span,
     command_span: Span,
 ) -> Result<Value, LabeledError> {
     if vector_lhs.len() != vector_rhs.len() {
@@ -101,7 +107,7 @@ pub fn compute_dot_product(
             LabeledError::new("Only equal-length vectors are supported.")
                 .with_label(
                     format!("The pipeline contained {} elements.", vector_lhs.len()),
-                    command_span,
+                    pipeline_span,
                 )
                 .with_label(
                     format!("The list contained {} elements.", vector_rhs.len()),
@@ -114,12 +120,12 @@ pub fn compute_dot_product(
     let element_products: Vec<Value> = vector_element_pairs
         .map(|(pipeline_value, arg_value)| {
             pipeline_value
-                .mul(command_span, arg_value, command_span)
+                .mul(command_span, arg_value, pipeline_span)
                 .unwrap_or(Value::float(0f64, command_span))
         })
         .collect_vec();
 
-    sum(element_products, command_span, command_span)
+    sum(element_products, pipeline_span, command_span)
 }
 
 #[cfg(test)]
