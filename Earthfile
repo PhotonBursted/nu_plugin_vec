@@ -57,7 +57,9 @@ bumpVersion:
 
   # Check whether the repository is in a good state to push
   DO +COPY_SOURCE
-  BUILD +check
+  WAIT
+    BUILD +check
+  END
 
   # Conservatively copy other files needed for next steps
   DO +COPY_GIT
