@@ -15,6 +15,7 @@ impl Plugin for VecPlugin {
             Box::new(commands::Cosine),
             Box::new(commands::Dot),
             Box::new(commands::Magnitude),
+            Box::new(commands::Normalize),
             Box::new(commands::Sine),
             Box::new(commands::SqNorm),
         ]
