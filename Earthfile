@@ -73,10 +73,13 @@ bumpVersion:
 
 # releases the plugin to crates.io
 release:
-    FROM +build
+  ARG cargo_registry_token
+  ENV CARGO_REGISTRY_TOKEN=$cargo_registry_token
 
-    DO rust+CARGO --args="login" # Uses the CARGO_REGISTRY_TOKEN env var to log in
-    DO rust+CARGO --args="publish"
+  FROM +build
+
+  DO rust+CARGO --args="login" # Uses the CARGO_REGISTRY_TOKEN env var to log in
+  DO rust+CARGO --args="publish"
 
 
 
