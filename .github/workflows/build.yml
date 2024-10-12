@@ -1,4 +1,4 @@
-name: Check PR code quality
+name: Check code quality
 
 on:
   pull_request:
@@ -16,4 +16,4 @@ jobs:
           version: v0.8.14
       - uses: actions/checkout@v4
       - name: Check code quality
-        run: earthly --org nu_plugin_vec --ci +check
+        run: earthly --ci +check
