@@ -41,6 +41,7 @@ fmt:
   FROM +lint
 
   # DEBUG which tags are available?
+  COPY --keep-ts --dir .git ./
   RUN git tag --list
 
   DO rust+CARGO --args="fmt --check"
