@@ -104,7 +104,7 @@ COPY_GIT:
   FUNCTION
 
   COPY --keep-ts --dir .git ./
-  RUN git pull --tags
+  RUN git fetch --tags
 
 COPY_SOURCE:
   FUNCTION
