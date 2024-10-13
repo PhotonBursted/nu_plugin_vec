@@ -5,6 +5,7 @@ mod magnitude;
 mod normalize;
 mod sin;
 mod sqnorm;
+mod sub;
 
 pub use add::Command as Add;
 pub use cos::Command as Cosine;
@@ -13,3 +14,4 @@ pub use magnitude::Command as Magnitude;
 pub use normalize::Command as Normalize;
 pub use sin::Command as Sine;
 pub use sqnorm::Command as SqNorm;
+pub use sub::Command as Sub;

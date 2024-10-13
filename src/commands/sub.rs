@@ -23,37 +23,37 @@ impl PluginCommand for Command {
     type Plugin = VecPlugin;
 
     fn name(&self) -> &str {
-        "vec add"
+        "vec sub"
     }
 
     fn signature(&self) -> Signature {
-        Signature::build("vec add")
+        Signature::build("vec sub")
             .input_output_types(vec![(Type::List(Box::new(Type::Number)), Type::Number)])
             .allow_variants_without_examples(true)
             .required(
                 "second_vector",
                 SyntaxShape::List(Box::new(SyntaxShape::Number)),
-                "The second vector to add to the vector in the pipeline.",
+                "The second vector, which will be subtracted from the vector in the pipeline.",
             )
             .category(Category::Math)
     }
 
     fn description(&self) -> &str {
-        "Returns the addition of two vectors, represented as lists."
+        "Returns the subtraction of two vectors, represented as lists."
     }
 
     fn search_terms(&self) -> Vec<&str> {
-        vec!["vector", "addition", "sum"]
+        vec!["vector", "subtraction"]
     }
 
     fn examples(&self) -> Vec<Example> {
         vec![Example {
-            description: "Calculate the addition of two vectors",
-            example: "[1 2 3] | vec add [3 4 -5]",
+            description: "Calculate the subtraction between two vectors",
+            example: "[1 2 3] | vec sub [3 4 -5]",
             result: Some(Value::test_list(vec![
-                Value::test_int(4),
-                Value::test_int(6),
                 Value::test_int(-2),
+                Value::test_int(-2),
+                Value::test_int(8),
             ])),
         }]
     }
@@ -87,7 +87,7 @@ fn operate(
         .collect_vec();
 
     process_pipeline(call, input, |vector_lhs, pipeline_span, command_span| {
-        sum_vectors(
+        subtract_vectors(
             vector_lhs,
             vector_rhs.as_slice(),
             pipeline_span,
@@ -96,7 +96,7 @@ fn operate(
     })
 }
 
-pub fn sum_vectors(
+pub fn subtract_vectors(
     vector_lhs: &[Value],
     vector_rhs: &[Value],
     pipeline_span: Span,
@@ -112,7 +112,7 @@ pub fn sum_vectors(
     let output_values: Vec<Value> = vector_element_pairs
         .map(|(pipeline_value, arg_value)| {
             pipeline_value
-                .add(command_span, arg_value, pipeline_span)
+                .sub(command_span, arg_value, pipeline_span)
                 .unwrap_or(Value::float(0f64, command_span))
         })
         .collect_vec();
