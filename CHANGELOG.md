@@ -1,3 +1,13 @@
+## v0.3.0 (2024-10-13)
+
+### Feat
+
+- add vector addition operation
+
+### Refactor
+
+- **commands**: centralize equal length vector assertion
+
 ## v0.2.1 (2024-10-12)
 
 ### Fix
