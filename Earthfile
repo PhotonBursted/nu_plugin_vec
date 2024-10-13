@@ -76,8 +76,9 @@ release:
   FROM +build
 
   COPY --keep-ts cargo_token README.md ./
+  DO rust+CARGO --args="login < cargo_token" # Uses the cargo_token file to log in
+  RUN rm -f cargo_token                      # Delete the cargo_token file! Otherwise it is pushed too
 
-  DO rust+CARGO --args="login < cargo_token" # Uses the CARGO_REGISTRY_TOKEN env var to log in
   DO rust+CARGO --args="publish"
 
 
