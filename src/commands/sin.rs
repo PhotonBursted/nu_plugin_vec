@@ -6,9 +6,11 @@ use itertools::Itertools;
 use nu_plugin::{EngineInterface, EvaluatedCall, PluginCommand};
 #[cfg(test)]
 use nu_plugin_test_support::PluginTest;
+#[cfg(test)]
+use nu_protocol::ShellError;
 use nu_protocol::{
-    Category, Example, IntoValue, LabeledError, PipelineData, ShellError, Signature, Span,
-    SyntaxShape, Type, Value,
+    Category, Example, IntoValue, LabeledError, PipelineData, Signature, Span, SyntaxShape, Type,
+    Value,
 };
 
 struct Arguments {
