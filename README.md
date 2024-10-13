@@ -1,5 +1,8 @@
 # nu_plugin_vec
 
+[![Crates.io Version](https://img.shields.io/crates/v/nu_plugin_vec)](https://crates.io/crates/nu_plugin_vec)
+[![Nushell](https://img.shields.io/badge/Nushell-v0.98.0-blue)](https://nushell.sh)
+
 A plugin for [Nushell](https://nushell.sh), a cross-platform shell and scripting language. This plugin adds support for
 vector operations.
 
@@ -7,8 +10,7 @@ vector operations.
 
 ### Cargo
 
-Early versions are now shipping to [crates.io](https://crates.io/crates/nu_plugin_vec), and can thus be installed by
-with Cargo:
+Get the latest version from [crates.io](https://crates.io/crates/nu_plugin_vec) with a local install:
 
 ```bash
 cargo install nu_plugin_vec             # Downloads and installs the plugin
