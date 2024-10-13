@@ -12,6 +12,7 @@ impl Plugin for VecPlugin {
 
     fn commands(&self) -> Vec<Box<dyn PluginCommand<Plugin = Self>>> {
         vec![
+            Box::new(commands::Add),
             Box::new(commands::Cosine),
             Box::new(commands::Dot),
             Box::new(commands::Magnitude),
