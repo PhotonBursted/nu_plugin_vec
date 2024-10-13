@@ -1,11 +1,14 @@
+use crate::utils::assertions::assert_equal_length_vectors;
 use crate::utils::process_pipeline;
 use crate::VecPlugin;
 use itertools::Itertools;
 use nu_plugin::{EngineInterface, EvaluatedCall, PluginCommand};
 #[cfg(test)]
 use nu_plugin_test_support::PluginTest;
+#[cfg(test)]
+use nu_protocol::ShellError;
 use nu_protocol::{
-    Category, Example, IntoValue, LabeledError, PipelineData, ShellError, Signature, Span,
+    Category, Example, IntoValue, LabeledError, PipelineData, Signature, Span,
     SyntaxShape, Type, Value,
 };
 
@@ -99,12 +102,8 @@ pub fn sum_vectors(
     pipeline_span: Span,
     command_span: Span,
 ) -> Result<Value, LabeledError> {
-    if vector_lhs.len() != vector_rhs.len() {
-        return Err(LabeledError::from(ShellError::IncorrectValue {
-            msg: format!("Only equal-length vectors are supported.\nThe pipeline contained {} elements, this list contained {}.", vector_lhs.len(), vector_rhs.len()),
-            val_span: pipeline_span,
-            call_span: command_span,
-        }));
+    if let Some(error) = assert_equal_length_vectors(vector_lhs, vector_rhs, pipeline_span, command_span) {
+        return Err(error);
     }
 
     let vector_element_pairs = vector_lhs.iter().zip(vector_rhs);

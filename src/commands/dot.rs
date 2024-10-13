@@ -1,3 +1,4 @@
+use crate::utils::assertions::assert_equal_length_vectors;
 use crate::utils::process_pipeline;
 use crate::utils::reducers::sum;
 use crate::VecPlugin;
@@ -102,18 +103,8 @@ pub fn compute_dot_product(
     pipeline_span: Span,
     command_span: Span,
 ) -> Result<Value, LabeledError> {
-    if vector_lhs.len() != vector_rhs.len() {
-        return Err(
-            LabeledError::new("Only equal-length vectors are supported.")
-                .with_label(
-                    format!("The pipeline contained {} elements.", vector_lhs.len()),
-                    pipeline_span,
-                )
-                .with_label(
-                    format!("The list contained {} elements.", vector_rhs.len()),
-                    command_span,
-                ),
-        );
+    if let Some(error) = assert_equal_length_vectors(vector_lhs, vector_rhs, pipeline_span, command_span) {
+        return Err(error);
     }
 
     let vector_element_pairs = vector_lhs.iter().zip(vector_rhs);

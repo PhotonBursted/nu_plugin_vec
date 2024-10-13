@@ -1,4 +1,5 @@
 use crate::commands::cos::compute_vcos;
+use crate::utils::assertions::assert_equal_length_vectors;
 use crate::utils::process_pipeline;
 use crate::VecPlugin;
 use itertools::Itertools;
@@ -96,12 +97,8 @@ pub fn compute_vsin(
     pipeline_span: Span,
     command_span: Span,
 ) -> Result<Value, LabeledError> {
-    if vector_lhs.len() != vector_rhs.len() {
-        return Err(LabeledError::from(ShellError::IncorrectValue {
-            msg: format!("Only equal-length vectors are supported.\nThe pipeline contained {} element(s), the list contained {}.", vector_lhs.len(), vector_rhs.len()),
-            val_span: pipeline_span,
-            call_span: command_span,
-        }));
+    if let Some(error) = assert_equal_length_vectors(vector_lhs, vector_rhs, pipeline_span, command_span) {
+        return Err(error);
     }
 
     let cosine = compute_vcos(vector_lhs, vector_rhs, pipeline_span, command_span)?;
