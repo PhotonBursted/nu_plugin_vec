@@ -1,3 +1,13 @@
+## v1.0.0 (2024-10-13)
+
+### Feat
+
+- add vector subtraction operation
+
+### Fix
+
+- imports for cosine and sine commands
+
 ## v0.3.0 (2024-10-13)
 
 ### Feat
