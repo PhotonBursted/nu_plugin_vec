@@ -5,7 +5,20 @@ on:
     branches: [ main ]
 
 jobs:
-  release:
+  github-release:
+    name: Create GitHub release
+    if: "startsWith(github.event.head_commit.message, 'bump:')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Github release
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          generateReleaseNotes: 'true'
+          tag: "$(git tag | tail -n 1)"
+          skipIfReleaseExists: 'true'
+
+  deploy-cargo:
+    name: "Deploy to Cargo"
     if: "startsWith(github.event.head_commit.message, 'bump:')"
     runs-on: ubuntu-latest
     env:
