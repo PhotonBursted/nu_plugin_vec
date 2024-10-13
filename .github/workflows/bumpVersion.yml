@@ -1,0 +1,26 @@
+name: Bump version
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  bumpVersion:
+    if: "!startsWith(github.event.head_commit.message, 'bump:')"
+    runs-on: ubuntu-latest
+    env:
+      EARTHLY_TOKEN: ${{ secrets.EARTHLY_TOKEN }}
+      FORCE_COLOR: 1
+    steps:
+      - uses: earthly/actions-setup@v1
+        with:
+          version: v0.8.14
+      - uses: actions/checkout@v4
+      - name: Get commit data
+        uses: rlespinasse/git-commit-data-action@v1.5.0
+      - name: Set git author # Required for commitizen's bump command
+        run: |
+          git config user.name "${GIT_COMMIT_AUTHOR_NAME}"
+          git config user.email "${GIT_COMMIT_AUTHOR_EMAIL}"
+      - name: Build and release
+        run: earthly --ci --push +bumpVersion
