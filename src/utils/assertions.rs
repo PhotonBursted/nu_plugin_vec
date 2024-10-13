@@ -8,7 +8,7 @@ pub fn assert_equal_length_vectors(
 ) -> Option<LabeledError> {
     if vector_lhs.len() != vector_rhs.len() {
         return Some(LabeledError::from(ShellError::IncorrectValue {
-            msg: format!("Only equal-length vectors are supported.\nThe pipeline contained {} elements, the list contained {}.", vector_lhs.len(), vector_rhs.len()),
+            msg: format!("Only equal-length vectors are supported.\nThe pipeline contained {} elements, the argument contained {}.", vector_lhs.len(), vector_rhs.len()),
             val_span: pipeline_span,
             call_span: command_span,
         }));
