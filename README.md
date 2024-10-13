@@ -3,11 +3,6 @@
 A plugin for [Nushell](https://nushell.sh), a cross-platform shell and scripting language. This plugin adds support for
 vector operations.
 
-## Status
-
-The plugin is still under construction at the moment.
-Work is being done on getting the plugin stable and tested, before an eventual v1 release.
-
 ## Installation
 
 ### Cargo
@@ -32,3 +27,55 @@ cargo build -r                                                # Build a release 
 plugin add target/release/nu_plugin_vec                       # Registers the plugin with Nushell
 plugin use vec                                                # Activates the plugin
 ```
+
+## Features
+
+The plugin offers adds some new commands, which aim to make scripting vector-like operations a smoother experience.
+Below, a few use cases are shown, which outline the difference this plugin makes.
+
+### Showcase
+
+#### Addition and subtraction
+
+```
+# Vanilla Nushell
+$vec1 | zip $vec2 | each { |pair| ($pair | first) + ($pair | last) }
+
+# Nushell + nu_plugin_vec
+$vec1 | vec add $vec2
+```
+
+#### Dot product
+
+```
+# Vanilla Nushell
+$vec1 | zip $vec2 | each { |pair| ($pair | first) * ($pair | last) } | math sum
+
+# Nushell + nu_plugin_vec
+$vec1 | vec dot $vec2
+```
+
+#### Vector similarity
+
+```
+# Vanilla Nushell
+let dot_product = ($vec1 | zip $vec2 | each { |pair| ($pair | first) * ($pair | last) } | math sum)
+let magnitude1  = ($vec1 | each { |v| $v * $v } | math sum | math sqrt)
+let magnitude2  = ($vec2 | each { |v| $v * $v } | math sum | math sqrt)
+$dot_product / ($magnitude1 * $magnitude2)
+
+# Nushell + nu_plugin_vec
+$vec1 | vec cos $vec2
+```
+
+### Command list
+
+The list of commands currently available is as follows:
+
+- `vec add` and `vec sub` for addition and subtraction
+- `vec cos` and `vec sin` for angle calculation
+- `vec dot` for dot products
+- `vec sqnorm` and `vec magnitude` for length measurements
+- `vec normalize` for conversions into unit vectors
+
+For more information, invoke `help <command>` in your Nushell session.
