@@ -26,7 +26,7 @@ impl PluginCommand for Command {
     }
 
     fn description(&self) -> &str {
-        "Returns the squared norm of two lists of numbers, interpreting both as vectors."
+        "Returns the squared norm of a list of numbers, interpreting it as if it were a vector."
     }
 
     fn search_terms(&self) -> Vec<&str> {
