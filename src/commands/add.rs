@@ -8,8 +8,8 @@ use nu_plugin_test_support::PluginTest;
 #[cfg(test)]
 use nu_protocol::ShellError;
 use nu_protocol::{
-    Category, Example, IntoValue, LabeledError, PipelineData, Signature, Span,
-    SyntaxShape, Type, Value,
+    Category, Example, IntoValue, LabeledError, PipelineData, Signature, Span, SyntaxShape, Type,
+    Value,
 };
 
 struct Arguments {
@@ -102,7 +102,9 @@ pub fn sum_vectors(
     pipeline_span: Span,
     command_span: Span,
 ) -> Result<Value, LabeledError> {
-    if let Some(error) = assert_equal_length_vectors(vector_lhs, vector_rhs, pipeline_span, command_span) {
+    if let Some(error) =
+        assert_equal_length_vectors(vector_lhs, vector_rhs, pipeline_span, command_span)
+    {
         return Err(error);
     }
 

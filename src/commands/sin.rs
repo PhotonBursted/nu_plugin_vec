@@ -97,7 +97,9 @@ pub fn compute_vsin(
     pipeline_span: Span,
     command_span: Span,
 ) -> Result<Value, LabeledError> {
-    if let Some(error) = assert_equal_length_vectors(vector_lhs, vector_rhs, pipeline_span, command_span) {
+    if let Some(error) =
+        assert_equal_length_vectors(vector_lhs, vector_rhs, pipeline_span, command_span)
+    {
         return Err(error);
     }
 
