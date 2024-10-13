@@ -28,7 +28,10 @@ impl PluginCommand for Command {
 
     fn signature(&self) -> Signature {
         Signature::build("vec add")
-            .input_output_types(vec![(Type::List(Box::new(Type::Number)), Type::Number)])
+            .input_output_types(vec![(
+                Type::List(Box::new(Type::Number)),
+                Type::List(Box::new(Type::Number)),
+            )])
             .allow_variants_without_examples(true)
             .required(
                 "second_vector",
