@@ -1,3 +1,4 @@
+pub(crate) mod assertions;
 pub(crate) mod reducers;
 
 use nu_plugin::EvaluatedCall;
