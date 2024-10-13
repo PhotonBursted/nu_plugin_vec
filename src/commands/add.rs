@@ -48,7 +48,7 @@ impl PluginCommand for Command {
 
     fn examples(&self) -> Vec<Example> {
         vec![Example {
-            description: "Calculate the cosine similarity between two vectors",
+            description: "Calculate the addition of two vectors",
             example: "[1 2 3] | vec add [3 4 -5]",
             result: Some(Value::test_list(vec![
                 Value::test_int(4),
