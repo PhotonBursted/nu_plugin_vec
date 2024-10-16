@@ -24,7 +24,7 @@ jobs:
         uses: ncipollo/release-action@v1.14.0
         with:
           generateReleaseNotes: 'true'
-          tag: "${PLUGIN_VERSION}"
+          tag: ${{ env.PLUGIN_VERSION }}
           skipIfReleaseExists: 'true'
 
   deploy-cargo:
