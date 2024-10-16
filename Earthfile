@@ -60,16 +60,14 @@ bumpVersion:
 
   # Conservatively copy other files needed for next steps
   DO +COPY_CZ
-
-  LET czBumpArgs = "--build-metadata $(cat nushell_version)"
   # Test whether a version bump is necessary
-  IF cz bump --dry-run $czBumpArgs
+  IF cz bump --dry-run
     # Copy all files in the git repo, as cz bump does a git commit
     # (and we don't want to delete things from the repository)
     DO +COPY_ALL
 
     # Bump the version, and push this change to the repository
-    RUN cz bump $czBumpArgs
+    RUN cz bump
     RUN --push git push
   END
 
@@ -97,7 +95,7 @@ COPY_CZ:
   DO +COPY_GIT             # Prerequisite, as the git information has to be present (tags, commit author has to be set)
   RUN git fetch --tags     # Explicitly fetch tags, as they are not included by default
 
-  COPY --keep-ts .cz.toml nushell_version ./
+  COPY --keep-ts .cz.toml ./
 
 COPY_GIT:
   FUNCTION

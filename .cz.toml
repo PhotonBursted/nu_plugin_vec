@@ -3,14 +3,3 @@ version_provider = "cargo"
 version_scheme = "semver2"
 update_changelog_on_bump = true
 tag_format = "v$version"
-
-name = "cz_customize"
-
-[tool.commitizen.customize]
-commit_parser = "^((?P<change_type>feat|fix|refactor|perf|BREAKING CHANGE|build)(?:\\((?P<scope>[^()\r\n]*)\\)|\\()?(?P<breaking>!)?|\\w+!):\\s(?P<message>.*)?"
-
-bump_pattern = "^((BREAKING CHANGE|feat|fix|build)(\\(.+\\))?!?):"
-changelog_pattern = "^((BREAKING CHANGE|feat|fix|build)(\\(.+\\))?!?):"
-
-change_type_order = ["BREAKING CHANGE", "Feat", "Fix", "Build"]
-change_type_map = { "feat" = "Feature", "fix" = "Fix", "build" = "Build" }

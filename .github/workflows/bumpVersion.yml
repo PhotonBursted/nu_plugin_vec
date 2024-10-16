@@ -24,12 +24,5 @@ jobs:
         run: |
           git config user.name "${GIT_COMMIT_AUTHOR_NAME}"
           git config user.email "${GIT_COMMIT_AUTHOR_EMAIL}"
-      - name: Setup Nu
-        uses: hustcer/setup-nu@v3.13
-        with:
-          version: "0.99.0"
-      - name: Get Nushell version from Cargo config
-        shell: nu {0}
-        run: open Cargo.toml | get dependencies.nu-plugin | save nushell_version
       - name: Build and release
         run: earthly --ci --push +bumpVersion
