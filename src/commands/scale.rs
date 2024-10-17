@@ -159,9 +159,7 @@ pub fn scale_vector_stretching(
     pipeline_span: Span,
     command_span: Span,
 ) -> Result<Value, LabeledError> {
-    if let Some(error) =
-        assert_equal_length_vectors(vector, factors, pipeline_span, command_span)
-    {
+    if let Some(error) = assert_equal_length_vectors(vector, factors, pipeline_span, command_span) {
         return Err(error);
     }
 
