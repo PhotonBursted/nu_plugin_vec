@@ -1,3 +1,4 @@
+use crate::commands::scale::scale_vector_stretching;
 use crate::utils::assertions::assert_equal_length_vectors;
 use crate::utils::process_pipeline;
 use crate::utils::reducers::sum;
@@ -74,6 +75,7 @@ impl PluginCommand for Command {
     }
 }
 
+#[allow(clippy::result_large_err)]
 fn operate(
     call: &EvaluatedCall,
     input: PipelineData,
@@ -97,6 +99,7 @@ fn operate(
     })
 }
 
+#[allow(clippy::result_large_err)]
 pub fn compute_dot_product(
     vector_lhs: &[Value],
     vector_rhs: &[Value],
@@ -109,14 +112,10 @@ pub fn compute_dot_product(
         return Err(error);
     }
 
-    let vector_element_pairs = vector_lhs.iter().zip(vector_rhs);
-    let element_products: Vec<Value> = vector_element_pairs
-        .map(|(pipeline_value, arg_value)| {
-            pipeline_value
-                .mul(command_span, arg_value, pipeline_span)
-                .unwrap_or(Value::float(0f64, command_span))
-        })
-        .collect_vec();
+    let element_products: Vec<Value> =
+        scale_vector_stretching(vector_lhs, vector_rhs, pipeline_span, command_span)?
+            .as_list()?
+            .to_vec();
 
     sum(element_products, pipeline_span, command_span)
 }
