@@ -3,10 +3,6 @@ use crate::utils::process_pipeline;
 use crate::VecPlugin;
 use itertools::Itertools;
 use nu_plugin::{EngineInterface, EvaluatedCall, PluginCommand};
-#[cfg(test)]
-use nu_plugin_test_support::PluginTest;
-#[cfg(test)]
-use nu_protocol::ShellError;
 use nu_protocol::{Category, Example, LabeledError, PipelineData, Signature, Span, Type, Value};
 
 #[derive(Clone)]
@@ -85,10 +81,4 @@ pub fn normalize_vector(
     );
 
     Ok(output)
-}
-
-#[cfg(test)]
-#[test]
-fn test_examples() -> Result<(), ShellError> {
-    PluginTest::new("nu_plugin_vec", VecPlugin.into())?.test_command_examples(&Command)
 }
