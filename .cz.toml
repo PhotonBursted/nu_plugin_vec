@@ -7,11 +7,57 @@ tag_format = "v$version"
 name = "cz_customize"
 
 [tool.commitizen.customize]
+message_template = """
+{{ prefix }}\
+{% if scope %}({{ scope }}){% endif %}\
+: {{ subject }}\
+{% if body %}
+
+{{ body }}\
+{% endif %}\
+
+{% if footer %}
+
+{{ footer }}
+{% endif %}\
+"""
 commit_parser = "^((?P<change_type>feat|fix|refactor|perf|BREAKING CHANGE|build)(?:\\((?P<scope>[^()\r\n]*)\\)|\\()?(?P<breaking>!)?|\\w+!):\\s(?P<message>.*)?"
 
 bump_pattern = "^((BREAKING CHANGE|feat|fix|build)(\\(.+\\))?!?):"
 bump_map = { "BREAKING CHANGE" = "MAJOR", "feat" = "MINOR", "fix" = "PATCH", "build" = "PATCH" }
 
 changelog_pattern = "^((BREAKING CHANGE|feat|fix|build)(\\(.+\\))?!?):"
-change_type_order = ["BREAKING CHANGE", "Feat", "Fix", "Build"]
+change_type_order = ["BREAKING CHANGE", "Feature", "Fix", "Build"]
 change_type_map = { "feat" = "Feature", "fix" = "Fix", "build" = "Build" }
+
+[[tool.commitizen.customize.questions]]
+type = "list"
+name = "prefix"
+choices = [
+    { value = "fix", name = "fix: A bug fix. Correlates with PATCH in SemVer", key = "x" },
+    { value = "feat", name = "feat: A new feature. Correlates with MINOR in SemVer", key = "f" },
+    { value = "BREAKING CHANGE", name = "BREAKING CHANGE: A change which breaks backwards compatibility. Correlates with MAJOR in SemVer", key = "m" },
+    { value = "docs", name = "docs: Documentation only changes", key = "d" },
+    { value = "style", name = "style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc.)", key = "s" },
+    { value = "refactor", name = "refactor: A code change that neither fixes a bug nor adds a feature", key = "r" },
+    { value = "perf", name = "perf: A code change aimed at improving performance", key = "p" },
+    { value = "test", name = "test: Adding missing (or correcting existing) tests", key = "t" },
+    { value = "build", name = "build: Changes which affect the build system or external dependencies (cargo, nu)", key = "b" },
+    { value = "ci", name = "ci: Changes to CI configuration files and scripts (scopes include Earthfile, action, etc.)", key = "c" },
+]
+message = "Select the type of change you are committing"
+
+[[tool.commitizen.customize.questions]]
+type = "input"
+name = "scope"
+message = "What is the scope of the change? (e.g. file name, command name): (press [enter] to skip)"
+
+[[tool.commitizen.customize.questions]]
+type = "input"
+name = "subject"
+message = "Write a short and imperative summary of the code changes: (lower case and no period)"
+
+[[tool.commitizen.customize.questions]]
+type = "input"
+name = "body"
+message = "Provide additional context about the code changes: (press [enter] to skip)"
