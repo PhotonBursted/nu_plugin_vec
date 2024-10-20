@@ -1,3 +1,13 @@
+## v1.1.0 (2024-10-20)
+
+### Feature
+
+- **commands**: introduce vector scale operation
+
+### Build
+
+- **cz**: fix custom question configuration
+
 ## v1.0.1 (2024-10-16)
 
 ### Build
