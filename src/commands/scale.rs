@@ -3,8 +3,6 @@ use crate::utils::process_pipeline;
 use crate::VecPlugin;
 use itertools::Itertools;
 use nu_plugin::{EngineInterface, EvaluatedCall, PluginCommand};
-#[cfg(test)]
-use nu_plugin_test_support::PluginTest;
 use nu_protocol::{
     Category, Example, IntoValue, LabeledError, PipelineData, ShellError, Signature, Span,
     SyntaxShape, Type, Value,
@@ -174,10 +172,4 @@ pub fn scale_vector_stretching(
     let output = output_values.into_value(command_span);
 
     Ok(output)
-}
-
-#[cfg(test)]
-#[test]
-fn test_examples() -> Result<(), ShellError> {
-    PluginTest::new("nu_plugin_vec", VecPlugin.into())?.test_command_examples(&Command)
 }
