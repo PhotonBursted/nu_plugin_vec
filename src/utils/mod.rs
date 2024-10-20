@@ -1,5 +1,6 @@
 pub(crate) mod assertions;
 pub(crate) mod reducers;
+mod testing;
 
 use nu_plugin::EvaluatedCall;
 use nu_protocol::{IntoPipelineData, LabeledError, PipelineData, ShellError, Span, Value};
