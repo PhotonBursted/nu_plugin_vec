@@ -5,10 +5,6 @@ use crate::utils::reducers::sum;
 use crate::VecPlugin;
 use itertools::Itertools;
 use nu_plugin::{EngineInterface, EvaluatedCall, PluginCommand};
-#[cfg(test)]
-use nu_plugin_test_support::PluginTest;
-#[cfg(test)]
-use nu_protocol::ShellError;
 use nu_protocol::{
     Category, Example, IntoValue, LabeledError, PipelineData, Signature, Span, SyntaxShape, Type,
     Value,
@@ -118,10 +114,4 @@ pub fn compute_dot_product(
             .to_vec();
 
     sum(element_products, pipeline_span, command_span)
-}
-
-#[cfg(test)]
-#[test]
-fn test_examples() -> Result<(), ShellError> {
-    PluginTest::new("nu_plugin_vec", VecPlugin.into())?.test_command_examples(&Command)
 }

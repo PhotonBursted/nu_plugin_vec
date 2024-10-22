@@ -1,14 +1,13 @@
 use nu_plugin_test_support::PluginTest;
 use nu_plugin_vec::commands::Scale as Command;
-use nu_plugin_vec::{test_examples, VecPlugin};
+use nu_plugin_vec::{nu, test_examples, VecPlugin};
 use nu_protocol::ShellError;
 
 test_examples!();
 
 mod scale_vector_stretching {
+    use super::*;
     use itertools::Itertools;
-    use nu_plugin_test_support::PluginTest;
-    use nu_plugin_vec::{nu, VecPlugin};
 
     #[test]
     fn errors_when_factor_vector_is_shorter() {
@@ -49,9 +48,8 @@ mod scale_vector_stretching {
 }
 
 mod scale_vector_uniform {
+    use super::*;
     use itertools::Itertools;
-    use nu_plugin_test_support::PluginTest;
-    use nu_plugin_vec::{nu, VecPlugin};
 
     #[test]
     fn keeps_ints_where_possible_when_using_int_factor() {

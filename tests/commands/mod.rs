@@ -1,1 +1,9 @@
 mod scale;
+mod add;
+mod cos;
+mod dot;
+mod magnitude;
+mod normalize;
+mod sin;
+mod sqnorm;
+mod sub;

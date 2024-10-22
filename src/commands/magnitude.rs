@@ -2,10 +2,6 @@ use crate::commands::sqnorm::compute_squared_norm;
 use crate::utils::process_pipeline;
 use crate::VecPlugin;
 use nu_plugin::{EngineInterface, EvaluatedCall, PluginCommand};
-#[cfg(test)]
-use nu_plugin_test_support::PluginTest;
-#[cfg(test)]
-use nu_protocol::ShellError;
 use nu_protocol::{
     Category, Example, IntoValue, LabeledError, PipelineData, Signature, Span, Type, Value,
 };
@@ -75,10 +71,4 @@ pub fn compute_magnitude(
         .map(|float| float.sqrt().into_value(command_span));
 
     output.map_err(LabeledError::from)
-}
-
-#[cfg(test)]
-#[test]
-fn test_examples() -> Result<(), ShellError> {
-    PluginTest::new("nu_plugin_vec", VecPlugin.into())?.test_command_examples(&Command)
 }
