@@ -18,6 +18,9 @@ jobs:
         with:
           version: v0.8.14
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 25
+          fetch-tags: true
       - name: Get commit data
         uses: rlespinasse/git-commit-data-action@v1.5.0
       - name: Set git author # Required for commitizen's bump command
