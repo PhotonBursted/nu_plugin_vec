@@ -92,8 +92,8 @@ COPY_ALL:
 COPY_CZ:
   FUNCTION
 
-  DO +COPY_GIT             # Prerequisite, as the git information has to be present (tags, commit author has to be set)
-  RUN git fetch --tags     # Explicitly fetch tags, as they are not included by default
+  DO +COPY_GIT                          # Prerequisite, as the git information has to be present (tags, commit author has to be set)
+  RUN git fetch --tags --unshallow -v   # Explicitly fetch tags, as they are not included by default
 
   COPY --keep-ts .cz.toml ./
 
