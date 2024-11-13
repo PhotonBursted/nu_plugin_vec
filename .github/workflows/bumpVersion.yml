@@ -21,6 +21,7 @@ jobs:
         with:
           fetch-depth: 25
           fetch-tags: true
+          token: ${{ secrets.GH_BUMP_TOKEN }}
       - name: Get commit data
         uses: rlespinasse/git-commit-data-action@v1.5.0
       - name: Set git author # Required for commitizen's bump command
