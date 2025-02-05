@@ -1,3 +1,10 @@
+## v1.1.4 (2025-02-05)
+
+### Build
+
+- **Earthfile**: bump rust version to 1.84.1
+- **nu**: update to 0.102
+
 ## v1.1.3 (2024-12-24)
 
 ### Build
