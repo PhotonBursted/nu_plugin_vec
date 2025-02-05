@@ -4,7 +4,7 @@ PROJECT nu_plugin_vec/plugin
 IMPORT github.com/earthly/lib/rust:2.2.11 AS rust
 
 install:
-  FROM rust:1.81.0-bookworm
+  FROM rust:1.84.1-bookworm
   RUN rustup component add clippy rustfmt
 
   # Call +INIT before copying the source file to avoid installing function depencies every time source code changes
