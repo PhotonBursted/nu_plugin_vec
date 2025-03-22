@@ -9,9 +9,9 @@ readme = "README.md"
 version = "1.1.4"
 
 [dependencies]
-nu-plugin = "0.102.0"
-nu-protocol = "0.102.0"
+nu-plugin = "0.103.0"
+nu-protocol = "0.103.0"
 itertools = "0.14.0"
 
 [dev-dependencies]
-nu-plugin-test-support = { version = "0.102.0" }
+nu-plugin-test-support = { version = "0.103.0" }
