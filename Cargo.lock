@@ -961,7 +961,7 @@ dependencies = [
 
 [[package]]
 name = "nu_plugin_vec"
-version = "1.1.4"
+version = "1.1.5"
 dependencies = [
  "itertools 0.14.0",
  "nu-plugin",
