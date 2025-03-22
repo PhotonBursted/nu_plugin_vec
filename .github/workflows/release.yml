@@ -6,31 +6,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  github-release:
-    name: Create GitHub release
-    if: "startsWith(github.event.head_commit.message, 'bump:') || github.event_name == 'workflow_dispatch'"
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 5
-          fetch-tags: true
-      - name: Setup Nu
-        uses: hustcer/setup-nu@v3.13
-        with:
-          version: "0.99.0"
-      - name: Get project version from Cargo config
-        shell: nu {0}
-        run: $env.PLUGIN_VERSION = $"v(open Cargo.toml | get package.version)"
-      - name: Create Github release
-        uses: ncipollo/release-action@v1.14.0
-        with:
-          generateReleaseNotes: 'true'
-          tag: ${{ env.PLUGIN_VERSION }}
-          skipIfReleaseExists: 'true'
-
   deploy-cargo:
     name: "Deploy to Cargo"
     if: "startsWith(github.event.head_commit.message, 'bump:') || github.event_name == 'workflow_dispatch'"
